@@ -19,54 +19,45 @@ public class Main {
 //        ObserverRange();
 //        ObserverInterval();
 //        ObserverTimerObserver();
-        ObserverAction();
+//        ObserverAction();
         RxSingle();
         Single<String> single = RxSingle();
-//        single.subscribe(new SingleObserver<String>() {
-//            @Override
-//            public void onSubscribe(@NonNull Disposable d) {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(@NonNull String s) {
-//                System.out.println(s);
-//            }
-//
-//            @Override
-//            public void onError(@NonNull Throwable e) {
-//                System.out.println(e);
-//            }
-//        });
+        single.subscribe(new SingleObserver<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull String s) {
+                System.out.println(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                System.out.println(e);
+            }
+        });
 
 //        System.out.println(ObserverAction());
         new Scanner(System.in).nextLine();
     }
 
     private static Single<String> RxSingle() {
-        return Single.create(emitter -> {
-            var users = fetchUser();
-            if (users != null){
-                emitter.onSuccess((String) users);
-            }else{
-                emitter.onError(new Exception("Error: User not Found"));
-            }
-
-        });
+        return Single.create(Main::fetchUser);
     }
 
-    private static Object fetchUser() {
+    private static void fetchUser(SingleEmitter<String> emitter) {
         AtomicReference<String> Name = new AtomicReference<>();
         new Thread(()->{
             try {
                 Thread.sleep(5000);
-                Name.set("Melares");
+                emitter.onSuccess("Melares");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).start();
 
-        return Name.get();
     }
 
     // Can be used in Async
