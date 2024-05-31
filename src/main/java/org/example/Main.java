@@ -2,17 +2,13 @@ package org.example;
 
 
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.*;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
@@ -23,17 +19,70 @@ public class Main {
 //        ObserverRange();
 //        ObserverInterval();
 //        ObserverTimerObserver();
-//        ObserverAction();
-        System.out.println(ObserverAction());
+        ObserverAction();
+        RxSingle();
+        Single<String> single = RxSingle();
+//        single.subscribe(new SingleObserver<String>() {
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(@NonNull String s) {
+//                System.out.println(s);
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//                System.out.println(e);
+//            }
+//        });
+
+//        System.out.println(ObserverAction());
         new Scanner(System.in).nextLine();
+    }
+
+    private static Single<String> RxSingle() {
+        return Single.create(emitter -> {
+            var users = fetchUser();
+            if (users != null){
+                emitter.onSuccess((String) users);
+            }else{
+                emitter.onError(new Exception("Error: User not Found"));
+            }
+
+        });
+    }
+
+    private static Object fetchUser() {
+        AtomicReference<String> Name = new AtomicReference<>();
+        new Thread(()->{
+            try {
+                Thread.sleep(5000);
+                Name.set("Melares");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        return Name.get();
     }
 
     // Can be used in Async
     private static String ObserverAction() {
+        AtomicReference<String> sample = new AtomicReference<>();
         Action action = () -> {
             System.out.println("Sleeping Start");
-            Thread.sleep(5000);
-            System.out.println("Sleeping End");
+            new Thread(()->{
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Sleeping End");
+            }).start();
+
         };
 
         Completable completable = Completable.fromAction(action);
