@@ -27,6 +27,16 @@ public class Main {
         new Scanner(System.in).nextLine();
     }
 
+    /**
+     * Maybe - use if you expect only one or no items
+     * Methods:
+     * - onSubscribe
+     * - onSuccess
+     * - onComplete
+     * - onError
+     * Functionality:
+     * - result from some DB query
+     */
     public static void MaybeMaybe(){
         Maybe<String> maybe = RxMaybe();
 
@@ -76,6 +86,17 @@ public class Main {
 
     }
 
+    /**
+     * Single - use if you expect only one item
+     *
+     * Methods:
+     * -onSubscribe
+     * -onSuccess
+     * -onError
+     *
+     * Functionality:
+     * -http request result
+     */
     public static void SingleSingle(){
         RxSingle();
         Single<String> single = RxSingle();
@@ -112,7 +133,20 @@ public class Main {
         }).start();
     }
 
-    // Can be used in Async
+    /**
+     * Observable - Default choice, used when you expect one or more items.
+     *
+     * Methods:
+     * - onSubscribe: Called when an observer subscribes to the Observable.
+     * - onNext: Called with each emitted item.
+     * - onComplete: Called when the Observable has finished emitting all items.
+     * - onError: Called if an error occurs during the emission of items.
+     *
+     * Functionality:
+     * - Mouse Clicks: Observable can be used to handle mouse click events.
+     * - Any kind of events: Useful for handling various events such as user interactions.
+     * - Location updates: Can be used to emit location updates in a location-based application.
+     */
     private static String ObserverAction() {
         AtomicReference<String> sample = new AtomicReference<>();
         Action action = () -> {
