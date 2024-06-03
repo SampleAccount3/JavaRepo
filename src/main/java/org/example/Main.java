@@ -19,7 +19,64 @@ public class Main {
 //        ObserverRange();
 //        ObserverInterval();
 //        ObserverTimerObserver();
-//        ObserverAction();
+        ObserverAction();
+//        SingleSingle();
+//        MaybeMaybe();
+        System.out.println("End");
+//        System.out.println(ObserverAction());
+        new Scanner(System.in).nextLine();
+    }
+
+    public static void MaybeMaybe(){
+        Maybe<String> maybe = RxMaybe();
+
+        maybe.subscribe(new MaybeObserver<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull String s) {
+                System.out.println(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                System.out.println(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                System.out.println("Maybe Done");
+            }
+        });
+
+
+    }
+
+    private static Maybe<String> RxMaybe() {
+        return Maybe.create(emitter -> {
+            var newContent  = fetchUsers();
+            if (newContent != null){
+                emitter.onSuccess(newContent);
+            }else{
+                emitter.onComplete();
+            }
+        });
+    }
+    private static String fetchUsers(){
+        try {
+            Thread.sleep(2000);
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+
+    }
+
+    public static void SingleSingle(){
         RxSingle();
         Single<String> single = RxSingle();
         single.subscribe(new SingleObserver<String>() {
@@ -38,9 +95,6 @@ public class Main {
                 System.out.println(e);
             }
         });
-
-//        System.out.println(ObserverAction());
-        new Scanner(System.in).nextLine();
     }
 
     private static Single<String> RxSingle() {
@@ -48,7 +102,6 @@ public class Main {
     }
 
     private static void fetchUser(SingleEmitter<String> emitter) {
-        AtomicReference<String> Name = new AtomicReference<>();
         new Thread(()->{
             try {
                 Thread.sleep(5000);
@@ -57,7 +110,6 @@ public class Main {
                 throw new RuntimeException(e);
             }
         }).start();
-
     }
 
     // Can be used in Async
