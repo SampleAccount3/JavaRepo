@@ -17,7 +17,29 @@ public class Main {
     public static void main(String[] args) {
 //        consumerSample1();
 //        consumerSample2();
-        consumerSample3();
+//        consumerSample3();
+        consumerAndThen();
+    }
+
+    private static void consumerAndThen() {
+        List<Integer> numbers = new ArrayList<Integer>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        // multiply the contents of the list by 2
+        Consumer<List<Integer>> addAllContents = x ->{
+            for (int i = 0; i < x.size() ; i++) {
+                x.set(i, 2 * x.get(i));
+            }
+        };
+        Consumer<List<Integer>> displayList = x -> {
+            x.stream().forEach(y -> System.out.println(y + " "));
+        };
+
+        addAllContents.andThen(displayList).accept(numbers);
+
     }
 
     private static void consumerSample3() {
