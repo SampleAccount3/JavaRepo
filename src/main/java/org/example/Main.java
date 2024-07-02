@@ -5,21 +5,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.function.Predicate;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 public class Main {
-    /**
-     * Supplier does not accept arguments but returns T values
-     */
+
     public static void main(String[] args) {
-        Supplier<Integer> sumOf2nums = ()-> 20+30;
-        System.out.println(sumOf2nums.get());
+        // BiFunction<param1,param2,return type>
+        BiFunction<Integer, Integer, String> returnString = (x, y) -> String.valueOf(x + y);
+        Consumer<String> display = System.out::println;
+        display.accept(returnString.apply(20, 30));
 
-        Supplier<Double> randomNumbers = Math::random;
-        System.out.println(randomNumbers.get());
+        Function<Integer, String> sqrt = s -> String.valueOf(s * s);
+        display.accept(sqrt.apply(3));
     }
-
 }
-
