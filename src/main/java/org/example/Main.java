@@ -10,45 +10,9 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-//        callbackFunction();
-
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-
-        while(true){
-            executor.execute(new Runnable() {
-                public void run() {
-                    System.out.println("Asynchronous task");
-                }
-            });
-            executor.shutdown();
-        }
+        callbackFunction();
 
 
-
-
-//        Callable<Integer> task = () -> {
-//            TimeUnit.SECONDS.sleep(5);
-//            return 123;
-//        };
-//
-//        ExecutorService executor2 = Executors.newFixedThreadPool(2);
-//        Future<Integer> future = executor2.submit(task);
-//
-//        System.out.println("Future done? " + future.isDone());
-//
-//        Integer result = null;  // Waits for the task to complete and retrieves the result
-//        try {
-//            result = future.get();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        System.out.println("Future done? " + future.isDone());
-//        System.out.println("Result: " + result);
-//
-//        executor2.shutdown();
     }
 
     private static void callbackFunction() {
@@ -59,8 +23,6 @@ public class Main {
         executor.doWork();
         System.out.println("2");
     }
-
-
 }
 
 interface Callback{
@@ -76,7 +38,7 @@ class Executor{
         // Simulate some work with a thread sleep
         try {
             System.out.println("Working...");
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
