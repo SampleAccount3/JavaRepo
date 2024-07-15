@@ -1,0 +1,111 @@
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport java.lang.reflect.Array;\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\nimport java.util.concurrent.*;\r\nimport java.util.function.Predicate;\r\nimport java.util.stream.Collectors;\r\npublic class Main {\r\n\r\n    public static void main(String[] args) {\r\n//        callbackFunction();\r\n//        asyncCallbackFunction();\r\n//        try {\r\n//            completableFutureFunction();\r\n//        } catch (ExecutionException e) {\r\n//            throw new RuntimeException(e);\r\n//        } catch (InterruptedException e) {\r\n//            throw new RuntimeException(e);\r\n//        }\r\n\r\n        AsyncClass asyncClass =  new AsyncClass();\r\n\r\n        asyncClass.asyncFunction(2,1,((result, message) -> {\r\n            System.out.println(message + \" : \" + result);\r\n        }));\r\n        try {\r\n            Thread.sleep(5000);\r\n        } catch (InterruptedException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n    }\r\n\r\n    private static void completableFutureFunction() throws ExecutionException, InterruptedException {\r\n        System.out.println(\"Main Thread: \" + Thread.currentThread().getName());\r\n        CompletableFuture<String> future = CompletableFuture.supplyAsync(()->{\r\n            try {\r\n                TimeUnit.SECONDS.sleep(5);\r\n            } catch (InterruptedException e) {\r\n                throw new RuntimeException(e);\r\n            }\r\n            return \"Future Thread: \" + Thread.currentThread().getName();\r\n        });\r\n        System.out.println(future.get());\r\n    }\r\n\r\n\r\n    private static void asyncCallbackFunction() {\r\n        AsyncCallback asyncCallback = new AsyncCallback();\r\n        Runnable runnable = () -> System.out.println(\"Callback Executed\");\r\n        asyncCallback.performAsyncCallback(runnable);\r\n    }\r\n\r\n\r\n    private static void callbackFunction() {\r\n        Executor executor = new Executor( (x) ->{\r\n            System.out.println(\"This is my Message: \" + x );\r\n        });\r\n        System.out.println(\"1\");\r\n        executor.doWork();\r\n        System.out.println(\"2\");\r\n    }\r\n}\r\n\r\ninterface Callback{\r\n    void onComplete(int x);\r\n}\r\n\r\nclass Executor{\r\n    private Callback callback;\r\n    public Executor(Callback callback) {\r\n        this.callback = callback;\r\n    }\r\n    public void doWork(){\r\n        // Simulate some work with a thread sleep\r\n        try {\r\n            System.out.println(\"Working...\");\r\n            Thread.sleep(5000);\r\n        } catch (InterruptedException e) {\r\n            e.printStackTrace();\r\n        }\r\n        int x = 2, y = 5, z = 0;\r\n        z = x + y;\r\n        // Work is done, call the callback\r\n        callback.onComplete(z);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+--- a/src/main/java/org/example/Main.java	
++++ b/src/main/java/org/example/Main.java	
+@@ -1,5 +1,4 @@
+ package org.example;
+-
+ import java.lang.reflect.Array;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+@@ -12,6 +11,8 @@
+     public static void main(String[] args) {
+ //        callbackFunction();
+ //        asyncCallbackFunction();
++        asyncCallbackFunction2();
++//        asyncCallbackFunctionSupplier();
+ //        try {
+ //            completableFutureFunction();
+ //        } catch (ExecutionException e) {
+@@ -19,18 +20,33 @@
+ //        } catch (InterruptedException e) {
+ //            throw new RuntimeException(e);
+ //        }
++    }
++
++    private static void asyncCallbackFunctionSupplier() {
+ 
++    }
++
++    private static void asyncCallbackFunction2() {
+         AsyncClass asyncClass =  new AsyncClass();
+-
++        CountDownLatch latch = new CountDownLatch(2);
+         asyncClass.asyncFunction(2,1,((result, message) -> {
+             System.out.println(message + " : " + result);
++            latch.countDown();
+         }));
+-        try {
+-            Thread.sleep(5000);
++        System.out.println("Async function called");
++        new Thread(()->{
++            try {
++                Thread.sleep(10000);
++                latch.countDown();
++            } catch (InterruptedException e) {
++                throw new RuntimeException(e);
++            }
++        }).start();
++        try {
++            latch.await(); // Wait for the async task to complete
+         } catch (InterruptedException e) {
+             throw new RuntimeException(e);
+         }
+-
+     }
+ 
+     private static void completableFutureFunction() throws ExecutionException, InterruptedException {
+@@ -50,7 +66,7 @@
+     private static void asyncCallbackFunction() {
+         AsyncCallback asyncCallback = new AsyncCallback();
+         Runnable runnable = () -> System.out.println("Callback Executed");
+-        asyncCallback.performAsyncCallback(runnable);
++        asyncCallback.performAsyncCallback(runnable,2,1);
+     }
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c9b5a27b-05ee-40bc-912a-33ea45eb6e07\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"OOP_Interface_Lambda\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2hB0O8EHCS8lumjrkxSV5PPotsf\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Gradle.JavaRepo [:Main.main()].executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"Concurrency__Callback\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"onboarding.tips.debug.path\": \"C:/Users/ITD/Java/JavaRepoCollections/JavaRepository/src/main/java/org/example/Main.java\",\r\n    \"settings.editor.selected.configurable\": \"reference.settings.project.maven.ignored.files\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c9b5a27b-05ee-40bc-912a-33ea45eb6e07\" name=\"Changes\" comment=\"\" />\r\n      <created>1717052132570</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1717052132570</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>\r\n          <line>36</line>\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,9 +5,11 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="c9b5a27b-05ee-40bc-912a-33ea45eb6e07" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/AsyncCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/AsyncCallback.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/AsyncClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/AsyncClass.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Callback2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Callback2.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -82,8 +84,13 @@
+       <breakpoints>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+-          <line>36</line>
++          <line>52</line>
+           <option name="timeStamp" value="2" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
++          <line>29</line>
++          <option name="timeStamp" value="3" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>

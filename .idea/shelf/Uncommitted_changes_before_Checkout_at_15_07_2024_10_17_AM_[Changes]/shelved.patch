@@ -1,0 +1,65 @@
+Index: src/main/java/org/example/AsyncClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport java.util.concurrent.CompletableFuture;\r\n\r\npublic class AsyncClass {\r\n    public void asyncFunction(int x, int y, Callback2 callback2){\r\n        CompletableFuture.supplyAsync(()->{\r\n            // Simulate some work with a delay\r\n            try{\r\n                Thread.sleep(2000);\r\n            }catch (Exception e){\r\n                e.printStackTrace();\r\n            }\r\n            return x + y;\r\n        }).thenAccept(result ->{\r\n            // Pass the result and additional data to the callback\r\n            callback2.onComplete(result, \"Calculation Completed\");\r\n        });\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/org/example/AsyncClass.java b/src/main/java/org/example/AsyncClass.java
+--- a/src/main/java/org/example/AsyncClass.java	
++++ b/src/main/java/org/example/AsyncClass.java	
+@@ -1,15 +1,15 @@
+ package org.example;
+-
+ import java.util.concurrent.CompletableFuture;
++import java.util.concurrent.atomic.AtomicReference;
+ 
+ public class AsyncClass {
+     public void asyncFunction(int x, int y, Callback2 callback2){
+         CompletableFuture.supplyAsync(()->{
+             // Simulate some work with a delay
+-            try{
+-                Thread.sleep(2000);
+-            }catch (Exception e){
+-                e.printStackTrace();
++            try {
++                Thread.sleep(5000);
++            } catch (InterruptedException e) {
++                throw new RuntimeException(e);
+             }
+             return x + y;
+         }).thenAccept(result ->{
+Index: src/main/java/org/example/AsyncCallback.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\npublic class AsyncCallback {\r\n    public void performAsyncCallback(Runnable runnable){\r\n        new Thread(()->{\r\n            System.out.println(\"Processing Async Task\");\r\n            runnable.run();\r\n        }).start();\r\n    }\r\n\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/org/example/AsyncCallback.java b/src/main/java/org/example/AsyncCallback.java
+--- a/src/main/java/org/example/AsyncCallback.java	
++++ b/src/main/java/org/example/AsyncCallback.java	
+@@ -1,11 +1,11 @@
+ package org.example;
+ 
+ public class AsyncCallback {
+-    public void performAsyncCallback(Runnable runnable){
++    public void performAsyncCallback(Runnable runnable, int x, int y){
+         new Thread(()->{
+             System.out.println("Processing Async Task");
++            System.out.println("The Result is " + (x+ y));
+             runnable.run();
+         }).start();
+     }
+-
+ }
+Index: src/main/java/org/example/Callback2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\n@FunctionalInterface\r\npublic interface Callback2 {\r\n    void onComplete(int result, String message);\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/org/example/Callback2.java b/src/main/java/org/example/Callback2.java
+--- a/src/main/java/org/example/Callback2.java	
++++ b/src/main/java/org/example/Callback2.java	
+@@ -1,5 +1,4 @@
+ package org.example;
+-
+ @FunctionalInterface
+ public interface Callback2 {
+     void onComplete(int result, String message);

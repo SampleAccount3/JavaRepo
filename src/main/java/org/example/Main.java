@@ -1,8 +1,12 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -20,13 +24,60 @@ public class Main {
 //        streamForEach();
 //        streamOddEven();
 //        streamDistinct();
-        streamPeek();
+//        streamPeek();
+//        streamBuilder();
+//        streamGenerate();
+//        streamGenerate2();
+        streamIterate();
+    }
+
+    private static void streamIterate() {
+        Stream<Integer> streamIterated = Stream.iterate(1, s -> s + 1 ).limit(20);
+        System.out.println(streamIterated.toList());
+    }
+
+    private static void streamGenerate2() {
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+        Stream<Integer> streamGenerated = Stream
+                .generate(atomicInteger::getAndIncrement)
+                .limit(100)
+                .filter(s-> s%5 ==0);
+        System.out.println(streamGenerated.toList());
+    }
+
+    private static void streamGenerate() {
+        Stream<String> streamGenerated = Stream.generate(
+                ()-> "Element").limit(10);
+
+        List<String> streamList = streamGenerated.toList();
+        System.out.println(streamList);
+
+//        List<String> streamList = streamGenerated
+//                .peek(System.out::println)
+//                .toList();
+    }
+    private static void streamBuilder() {
+        Stream<Integer> streams = Stream
+                .<Integer>builder()
+                .add(1)
+                .add(2)
+                .add(3)
+                .add(4)
+                .add(5)
+                .add(6)
+                .add(7)
+                .add(8)
+                .add(9)
+                .add(10)
+                .build();
+
+        streams.filter(s-> s % 2 == 0).forEach(System.out::println);
     }
 
     // Stream Peak is mainly used in debugging
     private static void streamPeek() {
         List<String> names = Arrays.asList("Melares", "Melanio", "Melanio", "Melanio","Flores" );
-        List<String> result = names.stream().peek(System.out::println).toList();
+        names.stream().peek(System.out::println).toList();
     }
 
     private static void streamDistinct() {
@@ -64,6 +115,7 @@ public class Main {
                 .sorted()
                 .toList();
         result.forEach(System.out::println);
+
     }
 
     /**
