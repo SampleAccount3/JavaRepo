@@ -53,7 +53,6 @@ public class Main {
         asyncCallback.performAsyncCallback(runnable);
     }
 
-
     private static void callbackFunction() {
         Executor executor = new Executor( (x) ->{
             System.out.println("This is my Message: " + x );
