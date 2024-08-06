@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9b5a27b-05ee-40bc-912a-33ea45eb6e07" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_06_2024_4_03_PM__Changes_.xml" beforeDir="false" />
+    <list default="true" id="c9b5a27b-05ee-40bc-912a-33ea45eb6e07" name="Changes" comment="asdf">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Addition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Division.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Multiplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Sample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Subtraction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/AsyncCallback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/AsyncClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Callback2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="OOP_Interface_Lambda" />
+        <entry key="$PROJECT_DIR$" value="Concurrency_Callback" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,7 +63,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Concurrency__Callback",
+    "git-widget-placeholder": "InterfaceTeset",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "C:/Users/ITD/Java/JavaRepoCollections/JavaRepository/src/main/java/org/example/Main.java",
     "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files"
@@ -82,7 +92,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
-          <line>36</line>
+          <line>31</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
