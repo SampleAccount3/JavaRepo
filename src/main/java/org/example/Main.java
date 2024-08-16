@@ -77,7 +77,6 @@ public class Main {
     private static void ObservablesSamples() {
         Observable<Integer> observable = Observable.just(1,2,3,4,5,6,7,8,9,10)
                 .delay(5, TimeUnit.SECONDS);
-
         observable.blockingSubscribe(item -> System.out.println("Received " + item),
                 throwable -> System.err.println("Error " + throwable),
                 ()-> System.out.println("Done! "));
