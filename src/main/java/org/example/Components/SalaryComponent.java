@@ -16,4 +16,12 @@ public class SalaryComponent {
     public int getMaxSalary() {
         return maxSalary;
     }
+
+    @Override
+    public String toString() {
+        return "SalaryComponent{" +
+                "minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
+                '}';
+    }
 }

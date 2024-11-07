@@ -22,4 +22,13 @@ public class JobComponent {
     public String getLocation() {
         return Location;
     }
+
+    @Override
+    public String toString() {
+        return "JobComponent{" +
+                "job='" + job + '\'' +
+                ", position='" + position + '\'' +
+                ", Location='" + Location + '\'' +
+                '}';
+    }
 }

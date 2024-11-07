@@ -22,4 +22,13 @@ public class PersonComponent {
     public String getHobby() {
         return Hobby;
     }
+
+    @Override
+    public String toString() {
+        return "PersonComponent{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", Hobby='" + Hobby + '\'' +
+                '}';
+    }
 }
