@@ -18,7 +18,41 @@ public class Main {
 //        consumerSample1();
 //        consumerSample2();
 //        consumerSample3();
-        consumerAndThen();
+        consumerSample4();
+        consumerSample5();
+//        consumerAndThen();
+    }
+
+    private static void consumerSample5() {
+        Consumer<Integer> sampleNumber = numbers ->{
+
+        };
+    }
+
+    private static void consumerSample4() {
+        List<Integer> numberLists = new ArrayList<Integer>();
+        numberLists.add(1);
+        numberLists.add(2);
+        numberLists.add(3);
+        numberLists.add(4);
+        numberLists.add(5);
+
+        Consumer<List<Integer>> sqrtOfNumbers = numbers ->{
+            numbers.replaceAll(
+                    x -> {
+                        System.out.println(Math.sqrt(x));
+                        return x;
+                    });
+        };
+        sqrtOfNumbers.accept(numberLists);
+
+        IConsumerKuno<List<Integer>> sampleConsumer = Numero ->{
+            Numero.replaceAll( x -> {
+                System.out.println(Math.sqrt(x+2));
+                return x;
+            });
+        };
+        sampleConsumer.Umpisa(numberLists);
     }
 
     private static void consumerAndThen() {
@@ -30,9 +64,15 @@ public class Main {
         numbers.add(5);
         // multiply the contents of the list by 2
         Consumer<List<Integer>> addAllContents = x ->{
-            for (int i = 0; i < x.size() ; i++) {
-                x.set(i, 2 * x.get(i));
-            }
+//            for (int i = 0; i < x.size() ; i++) {
+////                x.set(i, 2 * x.get(i));
+////            }
+            // in replaceAll it iterates all the elements of x
+            x.replaceAll(n -> {
+                n *= 3;
+                System.out.println(n);
+                return n;
+            });
         };
         Consumer<List<Integer>> displayList = x -> {
             x.stream().forEach(y -> System.out.println(y + " "));
