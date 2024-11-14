@@ -10,9 +10,21 @@ repositories {
 }
 
 dependencies {
+//    testImplementation platform('org.junit:junit-bom:5.9.1')
+//    testImplementation 'org.junit.jupiter:junit-jupiter'
+//    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+//    implementation 'com.squareup.retrofit2:retrofit:2.9.0' // Retrofit core
+//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0' // JSON converter
+//    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+//    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.7' // Update to the latest RxJava version
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
 }
 
 test {
