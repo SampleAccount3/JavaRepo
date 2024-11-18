@@ -22,17 +22,17 @@ public class Main {
     }
 
     private static void multipleFutureAllOf() throws ExecutionException, InterruptedException {
-        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
             System.out.println("Future 1 Done");
-            return "Hello";
+            return 3;
         });
-        CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> {
             System.out.println("Future 2 Done");
-            return "World ";
+            return 2;
         });
-        CompletableFuture<String> future3 = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Integer> future3 = CompletableFuture.supplyAsync(() -> {
             System.out.println("Future 3 Done");
-            return "!! ";
+            return 1;
         });
 
         // can be used in Computation that Includes the database
@@ -41,7 +41,7 @@ public class Main {
 
         String combined = Stream.of(future1, future2, future3)
                 .map(CompletableFuture::join)
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.toList()).toString();
 
         System.out.println(combined);
     }
