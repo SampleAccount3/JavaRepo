@@ -24,6 +24,9 @@ public class RetrofitService {
         Call<List<HashMap<String, Object>>> getsampleVoucherValidity(
                 @Query("params") String params
         );
+
+        @GET("https://jsonplaceholder.typicode.com/posts")
+        Call<List<HashMap<String, Object>>> getSampleAPI();
     }
 
     public EndPoint getRft2(String baseURL) {
