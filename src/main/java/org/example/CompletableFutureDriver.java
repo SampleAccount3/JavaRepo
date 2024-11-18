@@ -50,4 +50,10 @@ public class CompletableFutureDriver {
         });
     }
 
+    public CompletableFuture<List<HashMap<String, Object>>> getAPIOmnibus(List<HashMap<String, Object>> request) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<HashMap<String, Object>> PlaceHolderList = request;
+            return PlaceHolderList; // Return list of HashMaps
+        });
+    }
 }

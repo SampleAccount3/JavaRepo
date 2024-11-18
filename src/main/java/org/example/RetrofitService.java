@@ -27,6 +27,7 @@ public class RetrofitService {
 
         @GET("https://jsonplaceholder.typicode.com/posts")
         Call<List<HashMap<String, Object>>> getSampleAPI();
+
     }
 
     public EndPoint getRft2(String baseURL) {
@@ -67,7 +68,6 @@ public class RetrofitService {
                         }
                     }
             };
-
             // Install the all-trusting trust manager
             final SSLContext sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
