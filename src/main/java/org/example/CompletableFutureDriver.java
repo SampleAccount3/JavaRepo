@@ -50,9 +50,16 @@ public class CompletableFutureDriver {
         });
     }
 
-    public CompletableFuture<List<HashMap<String, Object>>> getAPIOmnibus(List<HashMap<String, Object>> request) {
+    public CompletableFuture<HashMap<String, Object>> getAPIOmnibus(HashMap<String, Object> request) {
         return CompletableFuture.supplyAsync(() -> {
-            List<HashMap<String, Object>> PlaceHolderList = request;
+            HashMap<String, Object> PlaceHolderList = request;
+            return PlaceHolderList; // Return list of HashMaps
+        });
+    }
+
+    public CompletableFuture <HashMap<String, Object>> postAPIOmnibus(HashMap<String, Object> request) {
+        return CompletableFuture.supplyAsync(() -> {
+            HashMap<String, Object>  PlaceHolderList = request;
             return PlaceHolderList; // Return list of HashMaps
         });
     }

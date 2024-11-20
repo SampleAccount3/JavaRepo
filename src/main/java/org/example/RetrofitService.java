@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitService {
     interface EndPoint{
-        @GET("api/sales_mobility/voucher_sample/get_sample_data")
+        @GET("api/sales_mobility/coupon_sample/get_sample_data")
         Call<HashMap<String, Object>> getSampleVoucherCode();
 
-        @POST("api/sales_mobility/voucher_sample/sample_voucher_validity")
-        Call<List<HashMap<String, Object>>> getsampleVoucherValidity(
-                @Query("params") String params
+        @POST("api/sales_mobility/coupon_sample/coupon_validity")
+        Call <HashMap<String, Object>> getsampleVoucherValidity(
+                @Query("coupon_code") String couponCode
         );
 
         @GET("https://jsonplaceholder.typicode.com/posts")
@@ -39,7 +39,7 @@ public class RetrofitService {
                 .connectTimeout(60, TimeUnit.MINUTES)
                 .readTimeout(60, TimeUnit.MINUTES)
                 .writeTimeout(60, TimeUnit.MINUTES)
-//                .addInterceptor(httpLog)
+                .addInterceptor(httpLog)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -71,7 +71,7 @@ public class RetrofitService {
             // Install the all-trusting trust manager
             final SSLContext sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            // Create an ssl socket factory with our all-trusting manager
+            // Create a ssl socket factory with our all-trusting manager
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();

@@ -28,8 +28,12 @@ public class APIComponent {
     public APIComponent() {
     }
 
-    public CompletableFuture<List<HashMap<String, Object>>> getOmnibusData(){
+    public CompletableFuture<HashMap<String, Object>> getOmnibusData(){
 //        System.out.println(completableFutureDriver.getAPIOmnibus(apiRequestService.getVoucherCOde(this.retrofitService)));
-        return (completableFutureDriver.getAPIOmnibus(apiRequestService.getVoucherCOde(this.retrofitService)));
+        return completableFutureDriver.getAPIOmnibus(apiRequestService.getVoucherCOde(this.retrofitService));
+    }
+    public CompletableFuture<HashMap<String, Object>> postOmnibusData(){
+//        System.out.println(completableFutureDriver.getAPIOmnibus(apiRequestService.getVoucherCOde(this.retrofitService)));
+        return completableFutureDriver.postAPIOmnibus(apiRequestService.ValidateVoucher(this.retrofitService));
     }
 }
