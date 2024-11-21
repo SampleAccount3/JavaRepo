@@ -38,7 +38,6 @@ public class Main {
 
 
 //        List<List<HashMap<String,Object>>> sampleJoin = List.of(omnibusApiService.join(),(List<HashMap<String, Object>>)omnibusApiService2.join());
-
         List<Object> sampleJoin = List.of(
                 omnibusApiService.join(),
                 omnibusApiService2.join()
